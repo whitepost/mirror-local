@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>Logan's Page</title>
+
+		<!-- <css> -->
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="css/grid.css">
+		<link rel="stylesheet" href="css/main.css">
+    </head>
+
+<body>
+	<div id="masterWrapper">
+	
+		<!--div id="clockWrapper">
+			<div id="clock"></div>
+		</div>-->
+
+		<!--form name="clockForm">
+			<input type="button" name="clockButton" value="Loading..." onClick="showDate()" />
+		</form>-->			
+		<div id="clock"></div>
+		<div id="date"></div>
+		<div id="weather"></div>
+
+
+		<div id="cal">
+			<iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;height=500&amp;wkst=1&amp;bgcolor=%23000000&amp;src=6fkh9l00bmpqtb76tt095ano0k%40group.calendar.google.com&amp;color=%23853104&amp;ctz=America%2FLos_Angeles" style="border-width:0" width="530" height="500" frameborder="0" scrolling="no" align= "right" align= "top" ></iframe>	
+		</div> <!-- end calendar -->
+
+	</div> <!--end masterWrapper-->
+
+
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='https://cdn.rawgit.com/monkeecreate/jquery.simpleWeather/master/jquery.simpleWeather.min.js'></script>  
+
+
+    <!--<script language="JavaScript"-->
+		<!--
+		function clock(){
+		var time = new Date()
+		var hr = time.getHours()
+		var min = time.getMinutes()
+		var sec = time.getSeconds()
+		var ampm = " PM "
+		if (hr < 12){
+		ampm = " AM "
+		}
+		if (hr > 12){
+		hr -= 12
+		}
+		if (hr < 10){
+		hr = " " + hr
+		}
+		if (min < 10){
+		min = "0" + min
+		}
+		if (sec < 10){
+		sec = "0" + sec
+		}
+		document.clockForm.clockButton.value = hr + ":" + min + ":" + sec + ampm
+		setTimeout("clock()", 1000)
+		}
+		function showDate(){
+		var date = new Date()
+		var year = date.getYear()
+		if(year < 1000){
+		year += 1900
+		}
+		var monthArray = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
+		alert( monthArray[date.getMonth()] + " " + date.getDate() + ", " + year)
+		}
+		window.onload=clock;
+		//
+	</script> -->	
+
+	<script type="text/javascript">
+	        tday  =new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
+	        tmonth=new Array("January","February","March","April","May","June","July","August","September","October","November","December");
+	        function GetClock(){
+	        d = new Date();
+	        nday   = d.getDay();
+	        nmonth = d.getMonth();
+	        ndate  = d.getDate();
+	        nyear = d.getYear();
+	        nhour  = d.getHours();
+	        nmin   = d.getMinutes();
+	        nsec   = d.getSeconds();
+	        if(nyear<1000) nyear=nyear+1900;
+	        if(nhour ==  0) {ap = " ";nhour = 12;} 
+	        else if(nhour <= 11) {ap = " ";} 
+	        else if(nhour == 12) {ap = " ";} 
+	        else if(nhour >= 13) {ap = " ";nhour -= 12;}
+	        if(nmin <= 9) {nmin = "0" +nmin;}
+	        if(nsec <= 9) {nsec = "0" +nsec;}
+	        document.getElementById('clock').innerHTML=""+nhour+":"+nmin+":"+nsec+ap+"";
+	        document.getElementById('date').innerHTML=""+tday[nday]+", "+tmonth[nmonth]+" "+ndate+", "+nyear;
+	        setTimeout("GetClock()", 1000);
+	    }
+        	window.onload=GetClock;
+    </script>
+
+
+
+
+    <!-- Weather  -->                  
+    <script>
+	    // Docs at http://simpleweatherjs.com
+		$(document).ready(function() {
+		  $.simpleWeather({
+		    location: '',
+		    woeid: '2518054',
+		    unit: 'f',
+		    success: function(weather) {
+		      html = '<h2><i class="icon-'+weather.code+'"></i> '+weather.temp+'&deg;'+weather.units.temp+'</h2>';
+		      html += '<ul><li>'+weather.city+', '+weather.region+'</li>';
+		      html += '<li class="currently">'+weather.currently+'</li>';
+		      html += '<li>'+weather.wind.direction+' '+weather.wind.speed+' '+weather.units.speed+'</li></ul>';
+		  
+		      $("#weather").html(html);
+		    },
+		    error: function(error) {
+		      $("#weather").html('<p>'+error+'</p>');
+		    }
+		  });
+		});
+	</script>
+
+
+	</body>
+</html>
+

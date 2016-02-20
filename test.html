@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title></title>
+
+		<!-- <css> -->
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="css/grid.css">
+		<link rel="stylesheet" href="css/main.css">
+		<script src="js/modernizr-minified.js"></script>
+	</head>
+ 	<body>
+		<div id='clock'></div>
+
+		<!--cal-->
+		<div id="cal">
+			<iframe src="https://calendar.google.com/calendar/embed?src=logancone%40gmail.com&ctz=America/New_York" style="border: 0" width="700" height="600" frameborder="0" scrolling="no" ></iframe>
+		</div>
+
+		<!--openweatherapi-->
+		
+
+		
+
+
+			
+
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.simpleWeather/3.0.2/jquery.simpleWeather.min.js'></script>
+ 
+	<script>
+		$(document).ready( function() {
+
+		  function displayTime() {
+		    var currentTime = new Date();
+		    var hours = currentTime.getHours();
+		    var minutes = currentTime.getMinutes();
+		    var seconds = currentTime.getSeconds();
+
+		    // This gets a "handle" to the clock div in our HTML
+		    var clockDiv = document.getElementById('clock');
+
+		    // Then we set the text inside the clock div 
+		    // to the hours, minutes, and seconds of the current time
+		    clockDiv.innerText = hours + ":" + minutes + ":" + seconds;
+		  }
+
+		  // This runs the displayTime function the first time
+		  displayTime();
+
+		});
+		
+	</script>
+	<div id="weather"></div>
+
+	<script type="text/javascript">
+        		$(document).ready(function() {
+          			$.simpleWeather({
+            			woeid: '12795653', //2357536
+            			location: '',
+            			unit: 'f',
+            			success: function(weather) {
+              				html = '<h2>'+weather.temp+'&deg;'+weather.units.temp+'</h2>';
+              				html += '<ul><li>'+weather.city+', '+weather.region+'</li>';
+              				html += '<li class="currently">'+weather.currently+'</li>';
+              				<!--html += '<li>'+weather.alt.temp+'&deg;C</li></ul>-->';
+              
+              				for(var i=0;i<weather.forecast.length;i++) {
+                				html += '<p>'+weather.forecast[i].day+': '+weather.forecast[i].high+'</p>';
+              				}
+          
+              				$("#weather").html(html);
+            			},
+            			error: function(error) {
+              				$("#weather").html('<p>'+error+'</p>');
+            			}
+          			});
+        		});
+    		</script>
+    		<div id="weather"></div>
+	</body>
+</html>
+
